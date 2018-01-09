@@ -4,8 +4,18 @@
 // this into a small standalone library for handling browser's history API
 // cross browser and with a fallback to hashchange events or polling.
 
-(function(define) {
-define(function() {
+// remove older module wrapper
+// (function(define) {
+// define(function() {
+
+// new wrapper: START
+
+!(function (name, context, definition) {
+  if (typeof exports == 'object') { module.exports = definition(require); } else if (typeof define == 'function' && define.amd) { define(definition); } else if (typeof YUI == "function") { YUI.add(name, definition, '@VERSION@', {requires: []}); } else { context[name] = definition(); }
+}).call(this, 'History', this, function (require) {
+  'use strict';
+
+// new wrapper: END
 
   // 3 helper functions we use to avoid pulling in entire _ and $
   var _ = {};
@@ -298,5 +308,9 @@ define(function() {
 
   // export
   return History;
+
+// remove wrapper for module
+// });
+// })(typeof define === 'function' && define.amd ? define : function (factory) { module.exports = factory(require); });
+
 });
-})(typeof define === 'function' && define.amd ? define : function (factory) { module.exports = factory(require); });
